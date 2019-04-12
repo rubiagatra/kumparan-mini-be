@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.contrib.auth.models import (
-    AbstractBaseUser, BaseUserManager, PermissionMixin
+    AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
 from django.db import models
 
@@ -49,11 +49,11 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, PermissonsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     # Each `User` needs a human-readable unique identifier that we can use to
     # represent the `User` in the UI. We want to index this column in the
     # database to improve lookup performance
-    username = models.Charfield(db_index=True, max_length=255, unique=True)
+    username = models.CharField(db_index=True, max_length=255, unique=True)
 
     # We also need a way to contact the user and a way for the user to identify
     # themselvers when logging in. Since we need an email address for contacting
@@ -84,7 +84,7 @@ class User(AbstractBaseUser, PermissonsMixin):
     # The `Username_FIELD` property tells us which field we will use to log in.
     # In this case we want it to be the email field
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELD = ['username']
+    REQUIRED_FIELDS = ['username']
 
     # Tells Django that the UserManager class defined above should manage
     # objects of this type.
