@@ -63,7 +63,7 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 
 
     def update(self, request, *args, **kwargs):
-        serialize_data = request.data.get('user', {})
+        serializer_data = request.data.get('user', {})
 
         # Here is that serialize, validate, save pattern we talked about
         # before
